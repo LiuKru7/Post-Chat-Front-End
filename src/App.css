@@ -1,0 +1,16 @@
+.text-size-15em {
+    font-size: 1.5em;
+}
+.text-size-15em input {
+    font-size: 1.5em;
+}
+.text-size-15em button {
+    font-size: 1.5em;
+}
+.border-radius-20 {
+    border-radius: 20px;
+}
+.modalCreatePost {
+    right: 10px;
+    top: 250px
+}
