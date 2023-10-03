@@ -4,7 +4,7 @@ import Toolbar from "../components /Toolbar.jsx";
 
 const Page = () => {
     return (
-        <div className="vh-100 p-0 m-0">
+        <div className="p-0 m-0">
             <Toolbar></Toolbar>
         </div>
 

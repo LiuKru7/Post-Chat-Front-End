@@ -9,8 +9,7 @@ import Posts from "../components /Posts.jsx";
 
 const PostsPage = () => {
 
-    const posts = [
-        {
+    const [posts, setPosts] =useState([{
         username: "Liudvikas",
         title: "Grazuolis",
         imgUrl: "https://g.delfi.lt/images/pix/300x200/T0N14OutztY/liudvikas-andriulis-78204091.jpg",
@@ -65,10 +64,8 @@ const PostsPage = () => {
             imgUrl: "https://g.delfi.lt/images/pix/300x200/T0N14OutztY/liudvikas-andriulis-78204091.jpg",
             likes: 15,
             comments: 12
-        },
+        }])
 
-
-    ]
 
 
     const [sortId, setSortId] = useState(0)
@@ -76,18 +73,37 @@ const PostsPage = () => {
 
 
     function sortByComment () {
-        if(sortId===1) return  setSortId(0)
+        let data = posts
+        if(sortId===1) {
+            data.sort((a, b) => a.comments - b.comments);
+            setPosts(data)
+            return  setSortId(0)
+        }
+        data.sort((a, b) => b.comments - a.comments);
+        setPosts(data)
         setSortId(1)
-
     }
     function sortByLikes() {
-        if(sortId===2) return  setSortId(0)
+        let data = posts
+        if(sortId===2) {
+            data.sort((a, b) => a.likes - b.likes);
+            setPosts(data)
+            return setSortId(0)
+        }
+        data.sort((a, b) => b.likes - a.likes);
+        setPosts(data)
         setSortId(2)
-
 
     }
     function sortByTime () {
-        if(sortId===3) return  setSortId(0)
+        let data = posts
+        if(sortId===3) {
+            data.sort((a, b) => a.likes - b.likes);
+            setPosts(data)
+            return  setSortId(0)
+        }
+        data.sort((a, b) => b.likes - a.likes);
+        setPosts(data)
         setSortId(3)
     }
 
@@ -99,7 +115,7 @@ const PostsPage = () => {
 
 
     return (
-        <div className="vh-100 p-0 m-0 position-relative">
+        <div className="p-0 m-0 position-relative">
             {modalOn===1 &&
                 <ModalCreatePost></ModalCreatePost>
             }
