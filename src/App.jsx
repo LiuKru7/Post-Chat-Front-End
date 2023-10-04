@@ -1,10 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
-import Toolbar from "./components /Toolbar.jsx";
-import Login from "./components /Login.jsx";
-import Register from "./components /Register.jsx";
 import {Routes,Route} from "react-router-dom";
 import IndexPage from "./pages/indexPage.jsx";
 import Page from "./pages/page.jsx";
@@ -12,13 +8,42 @@ import ProfilePages from "./pages/profilePages.jsx";
 import MessagesPage from "./pages/messagesPage.jsx";
 import PostsPage from "./pages/postsPage.jsx";
 import UsersPage from "./pages/usersPage.jsx";
-import * as Icon from 'react-bootstrap-icons';
 import SinglePostPage from "./pages/singlePostPage.jsx";
+import { io } from "socket.io-client";
+import {useDispatch} from "react-redux";
+import {setAllPosts, setUserInFo} from "./features/info.jsx";
 
+
+export const socket = io("http://localhost:3001", {
+    autoConnect: true
+});
 
 
 function App() {
     const [count, setCount] = useState(0)
+    const dispatch = useDispatch()
+
+useEffect(()=> {
+    fetch('http://localhost:8000/allPosts')
+        .then((res)=>res.json())
+        .then(data=>{
+            dispatch(setAllPosts(data.data))
+        })
+},[])
+
+    useEffect(()=> {
+        socket.on('connect', () => {
+        });
+    },[])
+
+    useEffect(()=> {
+        socket.on('addAllPost', (allPost)=> {
+            dispatch(setAllPosts(allPost))
+        })
+    },[])
+
+
+
 
 
 

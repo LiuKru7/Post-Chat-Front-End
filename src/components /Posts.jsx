@@ -13,6 +13,7 @@ const Posts = ({x}) => {
     const nav = useNavigate()
 
     function showFunk () {
+        console.log(x)
             dispatch(setShowPost(x))
             nav("/singlePost")
     }
@@ -20,13 +21,12 @@ const Posts = ({x}) => {
 
 
     return (
-
         <div onClick={showFunk} className="border border-black border-3 bg-info w-300px  m-3 p-1 ">
             <h4>User {x.username}</h4>
             <p>Title: {x.title}</p>
-            <img className="w-100 px-5" src={x.imgUrl} alt=""/>
-            <div className="p-1 px-5 d-flex justify-content-end fs-5"><HeartFill/>{x.likes}
-                <ChatDots></ChatDots> {x.comments}</div>
+            <img className="w-100 px-5" src={x.image} alt=""/>
+            <div className="p-1 px-5 d-flex justify-content-end fs-5"><HeartFill/>{x.likes.length}
+                <ChatDots></ChatDots> {x.comments.length}</div>
         </div>
     );
 };

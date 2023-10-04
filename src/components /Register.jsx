@@ -15,6 +15,7 @@ const Register = ({loginPage}) => {
             password : passRef.current.value,
             password2 : pass2Ref.current.value
         }
+        console.log(user)
         if (user.username.length>20) return setError("Username too long")
         if (user.username.length<3) return setError("Username too short")
         if (user.password.length>20) return setError("password too long")
@@ -50,9 +51,9 @@ const Register = ({loginPage}) => {
                     <Form.Label>Password</Form.Label>
                     <Form.Control  autoComplete="off" type="password" placeholder="Password" ref={passRef} />
                 </Form.Group>
-                <Form.Group className="mb-5"  ref={pass2Ref}>
+                <Form.Group className="mb-5"  >
                     <Form.Label>Password 2</Form.Label>
-                    <Form.Control type="password"  autoComplete="off" placeholder="Password 2" />
+                    <Form.Control type="password" ref={pass2Ref} autoComplete="off" placeholder="Password 2" />
                 </Form.Group>
                 {error &&  error}
                 <Button className="px-5" variant="primary"  onClick={registerFunk} >

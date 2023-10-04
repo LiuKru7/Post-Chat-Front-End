@@ -22,7 +22,7 @@ const SinglePostPage = () => {
                     <div className="flex-lg-grow-1">
                         <h3>{showPost.title}</h3>
                         <div>
-                            <img className="w-100" src={showPost.imgUrl} alt=""/>
+                            <img className="w-100" src={showPost.image} alt=""/>
                         </div>
                     </div>
                     <div className="flex-lg-grow-1">
