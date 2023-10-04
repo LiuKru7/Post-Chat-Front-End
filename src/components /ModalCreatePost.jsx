@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 
 const ModalCreatePost = () => {
     return (
-            <div  className="p-5 bg-body-tertiary position-absolute modalCreatePost text-center border-radius-20">
+            <div  className="p-5 bg-body-tertiary position-absolute modalCreatePost text-center border-radius-20 z-3">
                 <InputGroup className="w-100 ">
                     <InputGroup.Text id="inputGroup-sizing-default">
                         Tittle

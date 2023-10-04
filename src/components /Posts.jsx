@@ -1,10 +1,27 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { ChatDots, HeartFill } from 'react-bootstrap-icons';
+import SinglePostModal from "./SinglePostModal.jsx";
+import {useDispatch, useSelector} from "react-redux";
+import {setShowPost} from "../features/info.jsx";
+import {useNavigate} from "react-router-dom";
 
 
 const Posts = ({x}) => {
+    const [show, setShow] = useState(0)
+    const dispatch = useDispatch ()
+    const postShowInfo = useSelector (state => (state.info.showPost))
+    const nav = useNavigate()
+
+    function showFunk () {
+            dispatch(setShowPost(x))
+            nav("/singlePost")
+    }
+
+
+
     return (
-        <div className="border border-black border-3 bg-info w-25 m-3 p-1 ">
+
+        <div onClick={showFunk} className="border border-black border-3 bg-info w-300px  m-3 p-1 ">
             <h4>User {x.username}</h4>
             <p>Title: {x.title}</p>
             <img className="w-100 px-5" src={x.imgUrl} alt=""/>

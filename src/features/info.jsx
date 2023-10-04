@@ -4,8 +4,9 @@ export const infoSlice = createSlice( {
     name:"info",
     initialState: {
         toolbar : 1,
-        user: [],
-
+        user: "",
+        userInfo: [],
+        showPost: false
     },
     reducers: {
         setUser: (state, action) => {
@@ -13,12 +14,20 @@ export const infoSlice = createSlice( {
         },
         setToolbar: (state,action) => {
             state.toolbar = action.payload
+        },
+        setShowPost: (state,action) => {
+            state.showPost = action.payload
+        },
+        setUserInFo: (state, action) => {
+            state.userInfo = action.payload
         }
     }
 })
 export const {setUser,
-    setUsername,
-    setToolbar
+    setToolbar,
+    setShowPost,
+    setUserInFo
+
 
 } = infoSlice.actions
 

@@ -1,28 +1,116 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import Toolbar from "../components /Toolbar.jsx";
 import {InputGroup} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import {useDispatch, useSelector} from "react-redux";
+import {setUser, setUserInFo} from "../features/info.jsx";
+import login from "../components /Login.jsx";
 
 const ProfilePages = () => {
     const [change, setChange] = useState(0)
+    const dispatch = useDispatch()
+    const userInfo = useSelector(state=> state.info.userInfo)
+    const changeImageUrlRef = useRef()
+    const oldPasswordRef = useRef()
+    const newPasswordRef = useRef()
+    const newPassword2Ref = useRef()
+    const [error, setError] = useState()
+    const [imageProfile, setImageProfile] = useState()
+
+    useEffect(()=> {
+        const options = {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                Authorization: localStorage.getItem('token')
+            },
+        };
+        fetch('http://localhost:8000/profile', options)
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.error) return console.log(data.message)
+                dispatch(setUserInFo(data.data))
+            });
+    },[])
+
 
     function changePasswordField () {
-        if (change===0) setChange(1)
-        if (change===1) setChange(0)
+        if (change===0) {
+            setError("")
+            setChange(1)
+        }
+        if (change===1) {
+            setError("")
+            setChange(0)
+        }
+
     }
 
+    function changeImageFunk () {
+        const data = {
+            img: changeImageUrlRef.current.value
+        }
+        if (!data) return         console.log(data)
+
+
+        const options = {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json',
+                Authorization: localStorage.getItem('token')
+            },
+            body: JSON.stringify(data),
+        }
+        fetch("http://localhost:8000/changeImage", options)
+            .then((res)=> res.json())
+            .then ((data)=> {
+                if (data.error) return setError(data.message)
+                changeImageUrlRef.current.value=""
+                dispatch(setUserInFo(data.data))
+            })
+    }
+
+    function changePasswordFunk () {
+        const data = {
+            oldPassword: oldPasswordRef.current.value,
+            password: newPasswordRef.current.value,
+            password2: newPassword2Ref.current.value,
+        }
+        if (data.oldPassword.length>20) return
 
 
 
+
+
+
+        const options = {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json',
+                Authorization: localStorage.getItem('token')
+            },
+            body: JSON.stringify(data),
+        }
+        fetch("http://localhost:8000/changePassword", options)
+            .then((res)=> res.json())
+            .then ((data)=> {
+                if (data.error) return setError(data.message)
+                oldPasswordRef.current.value=""
+                newPasswordRef.current.value=""
+                newPassword2Ref.current.value=""
+                setChange(0)
+            })
+
+    }
 
     return (
         <div className="p-0 m-0">
             <Toolbar></Toolbar>
-            <div className="d-flex p-5">
+            <div className="d-md-flex p-md-3 p-lg-5">
                 <div className="flex-grow-1 w-100">
                     <div className="w-100">
-                        <img className="w-100" src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" alt=""/>
+                        <img className="w-100" src={userInfo.image ? userInfo.image :  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"}  alt=""/>
                     </div>
                     <div className="w-100 p-3">
                         <InputGroup className="mb-3">
@@ -32,14 +120,15 @@ const ProfilePages = () => {
                             <Form.Control
                                 aria-label="Default"
                                 aria-describedby="inputGroup-sizing-default"
+                                ref={changeImageUrlRef}
                             />
-                            <Button>Submit</Button>
+                            <Button onClick={changeImageFunk}>Submit</Button>
                         </InputGroup>
                     </div>
                 </div>
                 <div className="flex-grow-1 w-100">
                     <div className="w-100 p-3">
-                        <h2 className="m-3">Username: </h2>
+                        <h2 className="m-3">Username: {userInfo.username && userInfo.username} </h2>
                         <div>
                             <Button
                                 onClick={changePasswordField}
@@ -54,6 +143,7 @@ const ProfilePages = () => {
                                     Old Password
                                 </InputGroup.Text>
                                 <Form.Control
+                                    ref={oldPasswordRef}
                                     aria-label="Default"
                                     aria-describedby="inputGroup-sizing-default"
                                 />
@@ -64,6 +154,7 @@ const ProfilePages = () => {
                                     New Password
                                 </InputGroup.Text>
                                 <Form.Control
+                                    ref={newPasswordRef}
                                     aria-label="Default"
                                     aria-describedby="inputGroup-sizing-default"
                                 />
@@ -73,18 +164,16 @@ const ProfilePages = () => {
                                     New Password
                                 </InputGroup.Text>
                                 <Form.Control
+                                    ref={newPassword2Ref}
                                     aria-label="Default"
                                     aria-describedby="inputGroup-sizing-default"
                                 />
                             </InputGroup>
-                            <Button className="m-3 px-5 py-1">SUBMIT</Button>
+                            <p className="m-3 w-75 text-bg-danger">   {error && error}</p>
+
+                            <Button onClick={changePasswordFunk} className="m-3 px-5 py-1">SUBMIT</Button>
                         </div>
                         }
-
-
-
-
-
                     </div>
                 </div>
             </div>

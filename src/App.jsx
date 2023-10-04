@@ -13,6 +13,7 @@ import MessagesPage from "./pages/messagesPage.jsx";
 import PostsPage from "./pages/postsPage.jsx";
 import UsersPage from "./pages/usersPage.jsx";
 import * as Icon from 'react-bootstrap-icons';
+import SinglePostPage from "./pages/singlePostPage.jsx";
 
 
 
@@ -30,6 +31,7 @@ function App() {
             <Route path="/messages" element={<MessagesPage></MessagesPage>}></Route>
             <Route path="/posts" element={<PostsPage></PostsPage>}></Route>
             <Route path="/users" element={<UsersPage></UsersPage>}></Route>
+            <Route path="/singlePost" element={<SinglePostPage></SinglePostPage>}></Route>
         </Routes>
     </div>
   )
