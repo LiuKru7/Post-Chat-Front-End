@@ -29,3 +29,23 @@
     border-radius: 50px;
     border: 3px solid black
 }
+.profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.profile-image img {
+    width: 100%;
+}
+.user-field {
+    width: 360px;
+    height: 130px;
+}
+.message-field {
+    top: -1;
+    right: -1;
+    width: 360px;
+    height: 130px;
+
+}

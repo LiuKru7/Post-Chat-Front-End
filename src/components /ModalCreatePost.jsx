@@ -14,15 +14,16 @@ const ModalCreatePost = () => {
     const [error, setError] = useState()
 
 
-
-
-
     function createPostFunk () {
+        const start = Date.now();
         const info = {
             username: user.username,
             userId: user._id,
+            userImage: user.image,
+            date: start,
             title: postTitleRef.current.value,
             image: postImageRef.current.value,
+
         }
         console.log(info)
 
@@ -31,9 +32,6 @@ const ModalCreatePost = () => {
         }
         socket.emit("newPost", info);
         }
-
-
-
 
 
     return (
@@ -60,9 +58,6 @@ const ModalCreatePost = () => {
                 </InputGroup>
                 <Button onClick={createPostFunk} className="mt-4 px-5 py-1">SUBMIT</Button>
             </div>
-
-            
-
     );
 };
 

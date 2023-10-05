@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import { ChatDots, HeartFill } from 'react-bootstrap-icons';
-import SinglePostModal from "./SinglePostModal.jsx";
 import {useDispatch, useSelector} from "react-redux";
 import {setShowPost} from "../features/info.jsx";
 import {useNavigate} from "react-router-dom";
@@ -21,7 +20,7 @@ const Posts = ({x}) => {
 
 
     return (
-        <div onClick={showFunk} className="border border-black border-3 bg-info w-300px  m-3 p-1 ">
+        <div onClick={showFunk} className="border border-black border-radius-20 p-2 bg-info w-300px  m-3 p-1 ">
             <h4>User {x.username}</h4>
             <p>Title: {x.title}</p>
             <img className="w-100 px-5" src={x.image} alt=""/>

@@ -11,25 +11,32 @@ import UsersPage from "./pages/usersPage.jsx";
 import SinglePostPage from "./pages/singlePostPage.jsx";
 import { io } from "socket.io-client";
 import {useDispatch} from "react-redux";
-import {setAllPosts, setUserInFo} from "./features/info.jsx";
+import {setAllPosts, setAllUsers, setShowPost, setSingleChat, setUserInFo} from "./features/info.jsx";
 
 
 export const socket = io("http://localhost:3001", {
     autoConnect: true
 });
+    function App() {
 
+        const [count, setCount] = useState(0)
+        const dispatch = useDispatch()
 
-function App() {
-    const [count, setCount] = useState(0)
-    const dispatch = useDispatch()
-
-useEffect(()=> {
+    useEffect(()=> {
     fetch('http://localhost:8000/allPosts')
         .then((res)=>res.json())
         .then(data=>{
             dispatch(setAllPosts(data.data))
         })
-},[])
+    },[])
+
+        useEffect(()=> {
+            fetch('http://localhost:8000/allUsers')
+                .then((res)=>res.json())
+                .then(data=>{
+                    dispatch(setAllUsers(data.data))
+                })
+        },[])
 
     useEffect(()=> {
         socket.on('connect', () => {
@@ -39,13 +46,33 @@ useEffect(()=> {
     useEffect(()=> {
         socket.on('addAllPost', (allPost)=> {
             dispatch(setAllPosts(allPost))
+            console.log(allPost)
         })
     },[])
 
+        useEffect(()=> {
+            socket.on('addOnePost', (post)=> {
+                dispatch(setShowPost(post))
+            })
+        },[])
 
+        useEffect(() => {
+            socket.on("addAllUser", (info)=> {
+                dispatch(setAllUsers(info))
+            })
+        }, []);
 
+        useEffect(() => {
+            socket.on('newMessageInRoom', (message) => {
+                console.log('Received new message:', message);
+            });
+        }, []);
 
-
+        useEffect(() => {
+            socket.on('newMsg', (info)=> {
+                dispatch(setSingleChat(info))
+            })
+        }, []);
 
   return (
     <div className="container vw-100 bg-primary-subtle m-auto p-0">

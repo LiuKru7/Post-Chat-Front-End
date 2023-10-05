@@ -51,7 +51,7 @@ const Toolbar = () => {
             </div>
 
             <div className="flex-grow-1 d-flex align-items-start justify-content-end">
-                <Button onClick={logOutNav} variant="danger" className="px-5 ">LogOut</Button>
+                <Button onClick={logOutNav} variant="danger" className="px-lg-5 ">LogOut</Button>
             </div>
         </div>
     );

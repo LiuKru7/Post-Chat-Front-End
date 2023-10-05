@@ -128,7 +128,7 @@ const ProfilePages = () => {
                 </div>
                 <div className="flex-grow-1 w-100">
                     <div className="w-100 p-3">
-                        <h2 className="m-3">Username: {userInfo.username && userInfo.username} </h2>
+                        <h2 className="m-3">{userInfo.username && userInfo.username} </h2>
                         <div>
                             <Button
                                 onClick={changePasswordField}

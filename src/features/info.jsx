@@ -8,7 +8,9 @@ export const infoSlice = createSlice( {
         userInfo: [],
         showPost: false,
         allPosts: [],
-
+        allUsers: [],
+        allMyMessages: [],
+        singleChat: []
     },
     reducers: {
         setUser: (state, action) => {
@@ -25,15 +27,27 @@ export const infoSlice = createSlice( {
         },
         setAllPosts: (state, action) => {
             state.allPosts = action.payload
+        },
+        setAllUsers: (state, action) => {
+            state.allUsers = action.payload
+        },
+        setAllMyMessages: (state, action) => {
+            state.allMyMessages = action.payload
+        },
+        setSingleChat: (state,action) => {
+            state.singleChat = action.payload
         }
+
     }
 })
 export const {setUser,
     setToolbar,
     setShowPost,
     setUserInFo,
-    setAllPosts
-
+    setAllPosts,
+    setAllUsers,
+    setAllMyMessages,
+    setSingleChat
 
 } = infoSlice.actions
 

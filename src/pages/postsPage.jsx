@@ -42,11 +42,11 @@ const PostsPage = () => {
     function sortByTime () {
         let data = [...posts]
         if(sortId===3) {
-            data.sort((a, b) => a.likes.length - b.likes.length);
+            data.sort((a, b) => a.date - b.date);
             dispatch(setAllPosts(data))
             return  setSortId(0)
         }
-        data.sort((a, b) => b.likes.length - a.likes.length);
+        data.sort((a, b) => b.date - a.date);
         dispatch(setAllPosts(data))
         setSortId(3)
     }

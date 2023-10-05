@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {useRef, useState} from "react";
 import {useDispatch} from "react-redux";
 import {setUser} from "../features/info.jsx";
+import {socket} from "../App.jsx";
 
 function Login({loginPage}) {
 
@@ -41,6 +42,7 @@ function Login({loginPage}) {
 
                 localStorage.setItem("token", (data.data[0]));
                 dispatch(setUser(data.data[1]))
+                socket.emit("usersUpdate", data.data[1]);
                 nav("/profile")
             });
     }
