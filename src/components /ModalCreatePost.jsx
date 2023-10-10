@@ -5,14 +5,12 @@ import Button from "react-bootstrap/Button";
 import {useSelector} from "react-redux";
 import {socket} from "../App.jsx";
 
-
-const ModalCreatePost = () => {
+const ModalCreatePost = ({setModalOff}) => {
 
     const user = useSelector(state => state.info.userInfo)
     const postImageRef = useRef()
     const postTitleRef = useRef()
     const [error, setError] = useState()
-
 
     function createPostFunk () {
         const start = Date.now();
@@ -31,6 +29,7 @@ const ModalCreatePost = () => {
             return setError("Bad url")
         }
         socket.emit("newPost", info);
+        setModalOff(0)
         }
 
 

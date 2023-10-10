@@ -29,27 +29,40 @@ const Messages = () => {
         }
         socket.emit('sendMessage', info);
 
+        messageRef.current.value = ""
+
 
     }
 
+    function handleFormSubmit(e) {
+        e.preventDefault();
+        messageFunk();
+    }
+
     return (
-        <div className="">
-            {singleChat.messages && singleChat.messages.map((x,i)=>
+        <div className="px-2 d-flex flex-column justify-content-between chat-window">
+            <div>{singleChat.messages && singleChat.messages.map((x,i)=>
                 <SingleMessage key={i} x={x}></SingleMessage>
-            )}
-            <div>
-                <InputGroup className="mb-3">
-                    <InputGroup.Text className="d-none d-lg-block" id="inputGroup-sizing-default">
-                        Message
-                    </InputGroup.Text>
-                    <Form.Control
-                        aria-label="Default"
-                        aria-describedby="inputGroup-sizing-default"
-                        ref={messageRef}
-                    />
-                    <Button onClick={messageFunk}>Send</Button>
-                </InputGroup>
-            </div>
+            )}</div>
+
+            {singleChat.roomId &&
+                <div>
+                    <Form onSubmit={handleFormSubmit}>
+                        <InputGroup className="mb-3">
+                            <InputGroup.Text className="d-none d-lg-block" id="inputGroup-sizing-default">
+                                Message
+                            </InputGroup.Text>
+                            <Form.Control
+                                aria-label="Default"
+                                aria-describedby="inputGroup-sizing-default"
+                                ref={messageRef}
+                            />
+                            <Button type="submit">Send</Button>
+                        </InputGroup>
+                    </Form>
+                </div>
+            }
+
 
         </div>
     );

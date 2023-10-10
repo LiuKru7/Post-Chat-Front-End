@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Routes,Route} from "react-router-dom";
+import {Routes, Route, useNavigate} from "react-router-dom";
 import IndexPage from "./pages/indexPage.jsx";
 import Page from "./pages/page.jsx";
 import ProfilePages from "./pages/profilePages.jsx";
@@ -10,17 +10,32 @@ import PostsPage from "./pages/postsPage.jsx";
 import UsersPage from "./pages/usersPage.jsx";
 import SinglePostPage from "./pages/singlePostPage.jsx";
 import { io } from "socket.io-client";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setAllPosts, setAllUsers, setShowPost, setSingleChat, setUserInFo} from "./features/info.jsx";
 
 
 export const socket = io("http://localhost:3001", {
     autoConnect: true
 });
-    function App() {
 
+
+
+
+    function App() {
         const [count, setCount] = useState(0)
         const dispatch = useDispatch()
+        const nav = useNavigate()
+
+        useEffect(() => {
+            if (localStorage.getItem("autoLogin")==="true") {
+                const token = localStorage.getItem("token")
+                socket.emit ("autoLogin", token)
+                nav ("/profile")
+            }
+
+
+
+        }, []);
 
     useEffect(()=> {
     fetch('http://localhost:8000/allPosts')
@@ -64,7 +79,6 @@ export const socket = io("http://localhost:3001", {
 
         useEffect(() => {
             socket.on('newMessageInRoom', (message) => {
-                console.log('Received new message:', message);
             });
         }, []);
 
@@ -73,9 +87,17 @@ export const socket = io("http://localhost:3001", {
                 dispatch(setSingleChat(info))
             })
         }, []);
+        useEffect(()=> {
+            socket.on ('autoLoginInfo', data => {
+                console.log(data)
+                dispatch(setUserInFo(data))
+            })
+        },[])
+
+
 
   return (
-    <div className="container vw-100 bg-primary-subtle m-auto p-0">
+    <div className="container vw-100 bg-primary-subtle m-auto p-0 app-container">
         <Routes>
             <Route path="/" element={<IndexPage/>} ></Route>
             <Route path="/page" element={<Page></Page>}></Route>

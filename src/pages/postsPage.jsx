@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react';
 import Toolbar from "../components /Toolbar.jsx";
 import Button from "react-bootstrap/Button";
-import { ArrowDown, ArrowUp } from 'react-bootstrap-icons';
+import { ArrowDown, ArrowUp, ChatDots, HeartFill, ClockHistory } from 'react-bootstrap-icons';
 import ModalCreatePost from "../components /ModalCreatePost.jsx";
 import Posts from "../components /Posts.jsx";
 import {useDispatch, useSelector} from "react-redux";
@@ -64,14 +64,14 @@ const PostsPage = () => {
     return (
         <div className="p-0 m-0 position-relative">
             {modalOn===1 &&
-                <ModalCreatePost></ModalCreatePost>
+                <ModalCreatePost setModalOff={setModalOn}></ModalCreatePost>
             }
             <Toolbar></Toolbar>
             <div className="d-lg-flex  ">
                 <div className="mt-3 mx-5  d-lg-none justify-content-center d-flex flex-column">
                     <Button onClick={createPostOpen} variant="success fs-3" >Create Post</Button>
                 </div>
-                <div className="bg-body-secondary m-lg-5 mx-5 my-2  px-lg-5 py-3 w-75 d-flex justify-content-between align-items-start border-radius-20 ">
+                <div className="d-none  bg-body-secondary m-lg-5 mx-5 my-2  px-lg-5 py-3 w-75 d-md-flex justify-content-between align-items-start border-radius-20 ">
                     <div className=""><span className="fs-4 fw-bold">Sort By:</span></div>
                     <Button onClick={sortByComment} variant="secondary" className="px-xl-4">Comment
                         {sortId===1 ? <ArrowDown  color="white" size={25} /> : <ArrowUp  color="white" size={25} /> }
@@ -83,6 +83,19 @@ const PostsPage = () => {
                         {sortId===3 ? <ArrowDown color="white" size={25} /> : <ArrowUp color="white" size={25} /> }
                     </Button>
                 </div>
+                <div className="d-md-none  bg-body-secondary m-lg-5 mx-5 my-2  px-lg-5 py-3 w-75 d-flex justify-content-between align-items-start border-radius-20 ">
+                    <div className=""><span className="fs-4 fw-bold">Sort By:</span></div>
+                    <Button onClick={sortByComment} variant="secondary" className="px-xl-4"> <ChatDots></ChatDots>
+                        {sortId===1 ? <ArrowDown  color="white" size={25} /> : <ArrowUp  color="white" size={25} /> }
+                    </Button>
+                    <Button onClick={sortByLikes} variant="secondary" className="px-xl-4"> <HeartFill></HeartFill>
+                        {sortId===2 ? <ArrowDown  color="white" size={25} /> : <ArrowUp  color="white" size={25} /> }
+                    </Button>
+                    <Button onClick={sortByTime} variant="secondary" className="px-xl-4"> <ClockHistory></ClockHistory>
+                        {sortId===3 ? <ArrowDown color="white" size={25} /> : <ArrowUp color="white" size={25} /> }
+                    </Button>
+                </div>
+
                 <div className="w-25  m-5  d-lg-flex justify-content-center d-none">
                     <Button onClick={createPostOpen} variant="success fs-3" >Create Post</Button>
                 </div>

@@ -10,17 +10,20 @@ const Register = ({loginPage}) => {
     const [error, setError] = useState()
 
     function registerFunk () {
+
         const user = {
-            username : usernameRef.current.value,
-            password : passRef.current.value,
-            password2 : pass2Ref.current.value
-        }
-        console.log(user)
-        if (user.username.length>20) return setError("Username too long")
-        if (user.username.length<3) return setError("Username too short")
-        if (user.password.length>20) return setError("password too long")
-        if (user.password.length<3) return setError("password to short")
-        if (user.password!==user.password2) return setError("password`s don`t match")
+            username: usernameRef.current.value,
+            password: passRef.current.value,
+            password2: pass2Ref.current.value
+        };
+        let hasUpperCaseLetter = false;
+        if (user.username.length > 20) return setError("Username too long.");
+        if (user.username.length < 4) return setError("Username too short.");
+        if (user.password.length > 20) return setError("Password too long.");
+        if (user.password.length < 4) return setError("Password too short.");
+        if (user.password !== user.password2) return setError("Passwords don't match.");
+        hasUpperCaseLetter = /[A-Z]/.test(user.password);
+        if (!hasUpperCaseLetter) return setError("Password needs an uppercase letter.");
 
         const options = {
             method: 'POST',

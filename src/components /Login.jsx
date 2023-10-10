@@ -10,24 +10,32 @@ import {socket} from "../App.jsx";
 function Login({loginPage}) {
 
 
+
     const nav = useNavigate()
     const usernameRef = useRef()
     const passRef = useRef()
     const [error, setError] = useState()
     const dispatch = useDispatch()
+    const [autoLogin, setAutoLogin] = useState(false);
 
-
+    function handleCheckboxChange(e) {
+        const isChecked = e.target.checked;
+        setAutoLogin(isChecked);
+        localStorage.setItem('autoLogin', isChecked);
+    }
 
     function login () {
         const user = {
             username : usernameRef.current.value,
             password : passRef.current.value,
         }
-        if (user.username.length>20) return setError("Username too long")
-        if (user.username.length<3) return setError("Username too short")
-        if (user.password.length>20) return setError("password too long")
-        if (user.password.length<3) return setError("password to short")
-
+        let hasUpperCaseLetter = false;
+        if (user.username.length > 20) return setError("Login error");
+        if (user.username.length < 4) return setError("Login error");
+        if (user.password.length > 20) return setError("Login error");
+        if (user.password.length < 4) return setError("Login error");
+        hasUpperCaseLetter = /[A-Z]/.test(user.password);
+        if (!hasUpperCaseLetter) return setError("Login error");
         const options = {
             method: 'POST',
             headers: {
@@ -39,7 +47,6 @@ function Login({loginPage}) {
             .then((res) => res.json())
             .then((data) => {
                 if (data.error) return setError(data.message)
-
                 localStorage.setItem("token", (data.data[0]));
                 dispatch(setUser(data.data[1]))
                 socket.emit("usersUpdate", data.data[1]);
@@ -60,7 +67,9 @@ function Login({loginPage}) {
                     <Form.Control autoComplete="off" type="password" placeholder="Password" ref={passRef} />
                 </Form.Group>
                 <Form.Group className="m-3 d-flex" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox"  />
+                    <Form.Check type="checkbox"
+                                checked={autoLogin}
+                                onChange={handleCheckboxChange} />
                     <span className="m-2">Auto Login</span>
                 </Form.Group>
                 <Nav.Link eventKey="2" className="mb-4" title="Item">

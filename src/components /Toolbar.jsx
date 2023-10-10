@@ -31,6 +31,7 @@ const Toolbar = () => {
         nav('/users')
     }
     function  logOutNav () {
+        localStorage.setItem("autoLogin", "false")
         dispatch(setToolbar(1))
         nav('/')
     }

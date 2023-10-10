@@ -20,11 +20,14 @@ const Posts = ({x}) => {
 
 
     return (
-        <div onClick={showFunk} className="border border-black border-radius-20 p-2 bg-info w-300px  m-3 p-1 ">
-            <h4>User {x.username}</h4>
-            <p>Title: {x.title}</p>
+        <div onClick={showFunk} className="border border-black border-radius-20 p-2 bg-info w-300px d-flex flex-column justify-content-between m-3 p-1 ">
+           <div>
+               <h3>{x.username}</h3>
+               <b>{x.title}</b>
+           </div>
+
             <img className="w-100 px-5" src={x.image} alt=""/>
-            <div className="p-1 px-5 d-flex justify-content-end fs-5"><HeartFill/>{x.likes.length}
+            <div className="p-1 px-5 d-flex justify-content-end fs-5 gap-1 align-items-center"><HeartFill/>{x.likes.length}
                 <ChatDots></ChatDots> {x.comments.length}</div>
         </div>
     );

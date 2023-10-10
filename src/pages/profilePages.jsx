@@ -4,7 +4,7 @@ import {InputGroup} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {useDispatch, useSelector} from "react-redux";
-import {setUser, setUserInFo} from "../features/info.jsx";
+import {setUser, setUserInFo,setAllUsers} from "../features/info.jsx";
 import login from "../components /Login.jsx";
 
 const ProfilePages = () => {
@@ -67,7 +67,12 @@ const ProfilePages = () => {
             .then ((data)=> {
                 if (data.error) return setError(data.message)
                 changeImageUrlRef.current.value=""
-                dispatch(setUserInFo(data.data))
+                console.log(data.data)
+                dispatch(setUserInFo(data.data[0]))
+                dispatch(setAllUsers(data.data[1]))
+
+
+
             })
     }
 
@@ -107,12 +112,12 @@ const ProfilePages = () => {
     return (
         <div className="p-0 m-0">
             <Toolbar></Toolbar>
-            <div className="d-md-flex p-md-3 p-lg-5">
-                <div className="flex-grow-1 w-100">
-                    <div className="w-100">
-                        <img className="w-100" src={userInfo.image ? userInfo.image :  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"}  alt=""/>
+            <div className="d-md-flex p-md-3 p-lg-5 d-flex flex-column flex-md-row">
+                <div className="flex-grow-1 w-100 order-2 order-md-1">
+                    <div className="w-100 image-in-profile d-flex justify-content-center">
+                        <img className="" src={userInfo.image ? userInfo.image :  "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png"}  alt=""/>
                     </div>
-                    <div className="w-100 p-3">
+                    <div className="w-100 p-3 pb-0">
                         <InputGroup className="mb-3">
                             <InputGroup.Text id="inputGroup-sizing-default">
                                 Change image
@@ -126,13 +131,13 @@ const ProfilePages = () => {
                         </InputGroup>
                     </div>
                 </div>
-                <div className="flex-grow-1 w-100">
-                    <div className="w-100 p-3">
+                <div className="flex-grow-1 w-100 order-1 order-md-2">
+                    <div className="w-100 p-1">
                         <h2 className="m-3">{userInfo.username && userInfo.username} </h2>
                         <div>
                             <Button
                                 onClick={changePasswordField}
-                                className="m-3 mt-5 px-5 py-1"
+                                className="m-3 mt-1 p-3 py-1"
                                 variant={change===1 ? "success" : "primary"}
 
                             >Change password</Button>

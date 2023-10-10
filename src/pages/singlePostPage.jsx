@@ -9,10 +9,12 @@ import { ChatDots, HeartFill } from 'react-bootstrap-icons';
 import {socket} from "../App.jsx";
 import SingleComment from "../components /SingleComment.jsx";
 import MessageModal from "../components /MessageModal.jsx";
+import MessageModal2 from "../components /MessageModal2.jsx";
 const SinglePostPage = () => {
 
     const userInfo = useSelector(state => (state.info.userInfo))
     const showPost = useSelector(state => (state.info.showPost))
+    const [show, setShow] = useState(0)
     const nav = useNavigate()
     const commentRef = useRef()
 
@@ -35,15 +37,16 @@ const SinglePostPage = () => {
     }
 
     function writeMessageFunk () {
-
-
+        setShow(1)
+        console.log(showPost)
     }
 
 
     return (
 
-        <div>
-            <div className="border border-1 border-black p-lg-5 p-3 " >
+        <div className='position-relative d-flex justify-content-center'>
+            <div className="px-lg-5 p-3 single-post" >
+                {show===1 && <MessageModal2 x={showPost} setShow={setShow}></MessageModal2>}
                 <div className="d-flex justify-content-end">
                     <X className="cursor-pointer x-hover x-border " onClick={()=>nav('/posts')} color="red" size={40}></X>
                 </div>
@@ -53,19 +56,26 @@ const SinglePostPage = () => {
                             <div className="profile-image">
                                 <img src={showPost.userImage ? showPost.userImage : ""} alt=""/>
                             </div>
-                            <div className="d-flex flex-column justify-content-center  px-3">
+                            <div className="d-flex flex-column justify-content-center  px-3 ">
+
                                 <b>{showPost.username}</b>
-                                <Button onClick={writeMessageFunk} >Write Message</Button>
+                                {userInfo.username !== showPost.username && <Button onClick={writeMessageFunk} >Write Message</Button> }
+
 
                             </div>
                         </div>
                     </div>
                     <div className="">
                         <h3>{showPost.title}</h3>
-                        <Button onClick={likeFunk}>Like</Button> <span>{showPost.likes.length}</span>
                         <div>
-                            <img className=" w-100" src={showPost.image} alt=""/>
+                            <img className="" src={showPost.image} alt=""/>
                         </div>
+                        <div className="d-flex justify-content-end gap-2 align-items-center m-1">
+                            <Button onClick={likeFunk}>Like</Button> <span>{showPost.likes.length}</span>
+
+                        </div>
+
+
                     </div>
                 </div>
                 <div className="mt-5">
