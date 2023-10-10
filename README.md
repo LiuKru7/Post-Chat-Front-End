@@ -31,19 +31,33 @@ User Management: ViewExpress is employed for tasks like user registration, login
 <h3>Computer version</h3>
 
 ![1.png](src%2Fimages%2F1.png)
+
 ![14.png](src%2Fimages%2F14.png)
+
 ![2.png](src%2Fimages%2F2.png)
+
 ![3.png](src%2Fimages%2F3.png)
+
 ![6.png](src%2Fimages%2F6.png)
 
 <h3>Mobile version </h3>
+<div class="d-flex flex-column align-content-center justify-content-center">
 
 ![7.png](src%2Fimages%2F7.png)
+
 ![15.png](src%2Fimages%2F15.png)
+
 ![8.png](src%2Fimages%2F8.png)
+
 ![9.png](src%2Fimages%2F9.png)
+
 ![10.png](src%2Fimages%2F10.png)
+
 ![11.png](src%2Fimages%2F11.png)
+
+</div>
+
+
 
 
 
