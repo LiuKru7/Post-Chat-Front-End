@@ -9,8 +9,6 @@ import {socket} from "../App.jsx";
 
 function Login({loginPage}) {
 
-
-
     const nav = useNavigate()
     const usernameRef = useRef()
     const passRef = useRef()

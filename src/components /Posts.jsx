@@ -4,11 +4,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {setShowPost} from "../features/info.jsx";
 import {useNavigate} from "react-router-dom";
 
-
 const Posts = ({x}) => {
-    const [show, setShow] = useState(0)
     const dispatch = useDispatch ()
-    const postShowInfo = useSelector (state => (state.info.showPost))
     const nav = useNavigate()
 
     function showFunk () {
@@ -16,8 +13,6 @@ const Posts = ({x}) => {
             dispatch(setShowPost(x))
             nav("/singlePost")
     }
-
-
 
     return (
         <div onClick={showFunk} className="border border-black border-radius-20 p-2 bg-info w-300px d-flex flex-column justify-content-between m-3 p-1 ">

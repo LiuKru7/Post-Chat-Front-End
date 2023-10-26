@@ -21,17 +21,13 @@ const ModalCreatePost = ({setModalOff}) => {
             date: start,
             title: postTitleRef.current.value,
             image: postImageRef.current.value,
-
         }
-        console.log(info)
-
         if (!info.image.startsWith('http://') && !info.image.startsWith('https://')) {
             return setError("Bad url")
         }
         socket.emit("newPost", info);
         setModalOff(0)
         }
-
 
     return (
             <div  className="p-5 bg-body-tertiary position-absolute modalCreatePost text-center border-radius-20 z-3">

@@ -1,15 +1,14 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {useSelector} from "react-redux";
-import { X } from 'react-bootstrap-icons';
+import {X} from 'react-bootstrap-icons';
 import {useNavigate} from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import {InputGroup} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import { ChatDots, HeartFill } from 'react-bootstrap-icons';
 import {socket} from "../App.jsx";
 import SingleComment from "../components /SingleComment.jsx";
-import MessageModal from "../components /MessageModal.jsx";
 import MessageModal2 from "../components /MessageModal2.jsx";
+
 const SinglePostPage = () => {
 
     const userInfo = useSelector(state => (state.info.userInfo))
@@ -18,37 +17,33 @@ const SinglePostPage = () => {
     const nav = useNavigate()
     const commentRef = useRef()
 
-    function commentFunk () {
+    function commentFunk() {
         const info = {
             postId: showPost._id,
             comment: commentRef.current.value,
             username: userInfo.username
         }
         socket.emit("newComment", info);
-
     }
-    function likeFunk () {
-        console.log("aaa")
+    function likeFunk() {
         const info = {
             postId: showPost._id,
             username: userInfo.username
         }
         socket.emit("newLike", info);
     }
-
-    function writeMessageFunk () {
+    function writeMessageFunk() {
         setShow(1)
-        console.log(showPost)
     }
-
 
     return (
 
         <div className='position-relative d-flex justify-content-center'>
-            <div className="px-lg-5 p-3 single-post" >
-                {show===1 && <MessageModal2 x={showPost} setShow={setShow}></MessageModal2>}
+            <div className="px-lg-5 p-3 single-post">
+                {show === 1 && <MessageModal2 x={showPost} setShow={setShow}></MessageModal2>}
                 <div className="d-flex justify-content-end">
-                    <X className="cursor-pointer x-hover x-border " onClick={()=>nav('/posts')} color="red" size={40}></X>
+                    <X className="cursor-pointer x-hover x-border " onClick={() => nav('/posts')} color="red"
+                       size={40}></X>
                 </div>
                 <div className="">
                     <div className="pb-3">
@@ -57,11 +52,9 @@ const SinglePostPage = () => {
                                 <img src={showPost.userImage ? showPost.userImage : ""} alt=""/>
                             </div>
                             <div className="d-flex flex-column justify-content-center  px-3 ">
-
                                 <b>{showPost.username}</b>
-                                {userInfo.username !== showPost.username && <Button onClick={writeMessageFunk} >Write Message</Button> }
-
-
+                                {userInfo.username !== showPost.username &&
+                                    <Button onClick={writeMessageFunk}>Write Message</Button>}
                             </div>
                         </div>
                     </div>
@@ -72,17 +65,14 @@ const SinglePostPage = () => {
                         </div>
                         <div className="d-flex justify-content-end gap-2 align-items-center m-1">
                             <Button onClick={likeFunk}>Like</Button> <span>{showPost.likes.length}</span>
-
                         </div>
-
-
                     </div>
                 </div>
                 <div className="mt-5">
                     <h4 className="">Comments</h4>
                     <div className="">
                         <div className="">
-                            {showPost.comments && showPost.comments.map ((x,i)=>
+                            {showPost.comments && showPost.comments.map((x, i) =>
                                 <SingleComment key={i} x={x}></SingleComment>
                             )}
                         </div>

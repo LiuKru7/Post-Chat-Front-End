@@ -5,12 +5,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {setToolbar} from "../features/info.jsx";
 import { Person, ChatSquareText, Postcard, People} from 'react-bootstrap-icons';
 
-
 const Toolbar = () => {
-
     const toolbarInfo = useSelector (state => state.info.toolbar)
     const dispatch = useDispatch()
-
     const nav = useNavigate()
 
     function profileNav () {

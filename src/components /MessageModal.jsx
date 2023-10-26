@@ -4,9 +4,7 @@ import {InputGroup} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {useSelector} from "react-redux";
-import login from "./Login.jsx";
 import {socket} from "../App.jsx";
-
 
 const MessageModal = ({x,setShow}) => {
     const myInfo = useSelector (state=> state.info.userInfo)

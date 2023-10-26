@@ -5,33 +5,26 @@ import {InputGroup} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {socket} from "../App.jsx";
-import login from "./Login.jsx";
 
 const Messages = () => {
-    const singleChat = useSelector(state=>state.info.singleChat)
-    const userInfo = useSelector( state => state.info.userInfo)
+    const singleChat = useSelector(state => state.info.singleChat)
+    const userInfo = useSelector(state => state.info.userInfo)
     const messageRef = useRef()
 
-    useEffect(()=> {
+    useEffect(() => {
         socket.emit('joinChat', singleChat.roomId);
         console.log("sss")
-    },[singleChat])
+    }, [singleChat])
 
-
-
-    function messageFunk () {
-
-        if (!userInfo.username) return console.log ("va tai tau")
+    function messageFunk() {
+        if (!userInfo.username) return
         const info = {
             roomId: singleChat.roomId,
             msgFrom: userInfo.username,
             message: messageRef.current.value
         }
         socket.emit('sendMessage', info);
-
         messageRef.current.value = ""
-
-
     }
 
     function handleFormSubmit(e) {
@@ -41,7 +34,7 @@ const Messages = () => {
 
     return (
         <div className="px-2 d-flex flex-column justify-content-between chat-window">
-            <div>{singleChat.messages && singleChat.messages.map((x,i)=>
+            <div>{singleChat.messages && singleChat.messages.map((x, i) =>
                 <SingleMessage key={i} x={x}></SingleMessage>
             )}</div>
 

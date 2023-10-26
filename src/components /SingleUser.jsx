@@ -3,13 +3,10 @@ import Button from "react-bootstrap/Button";
 import MessageModal from "./MessageModal.jsx";
 import {useSelector} from "react-redux";
 
-
-
-
 const SingleUser = ({x}) => {
+
     const [show, setShow] = useState(0)
     const myInfo = useSelector (state => state.info.userInfo)
-
 
     return (
         <div>
@@ -27,9 +24,6 @@ const SingleUser = ({x}) => {
                 </div>
             }
         </div>
-
-
-
     );
 };
 

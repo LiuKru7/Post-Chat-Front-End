@@ -2,7 +2,6 @@ import React, {useRef, useState} from 'react';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-
 const Register = ({loginPage}) => {
     const usernameRef = useRef()
     const passRef = useRef()
@@ -10,7 +9,6 @@ const Register = ({loginPage}) => {
     const [error, setError] = useState()
 
     function registerFunk () {
-
         const user = {
             username: usernameRef.current.value,
             password: passRef.current.value,
@@ -35,7 +33,6 @@ const Register = ({loginPage}) => {
         fetch('http://localhost:8000/register', options)
             .then((res) => res.json())
             .then((data) => {
-                console.log(data.error)
                 if (data.error) return setError(data.message)
                 loginPage(0)
             });
