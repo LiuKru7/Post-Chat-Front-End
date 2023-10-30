@@ -10,7 +10,8 @@ export const infoSlice = createSlice( {
         allPosts: [],
         allUsers: [],
         allMyMessages: [],
-        singleChat: []
+        singleChat: [],
+        host: "localhost"
     },
     reducers: {
         setUser: (state, action) => {

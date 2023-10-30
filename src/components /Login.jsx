@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import {useNavigate} from "react-router-dom";
 import {useRef, useState} from "react";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setUser} from "../features/info.jsx";
 import {socket} from "../App.jsx";
 
@@ -15,6 +15,7 @@ function Login({loginPage}) {
     const [error, setError] = useState()
     const dispatch = useDispatch()
     const [autoLogin, setAutoLogin] = useState(false);
+    const host = useSelector (state=>state.info.host)
 
     function handleCheckboxChange(e) {
         const isChecked = e.target.checked;
@@ -41,7 +42,7 @@ function Login({loginPage}) {
             },
             body: JSON.stringify(user),
         };
-        fetch('http://localhost:8000/login', options)
+        fetch(`http://${host}:8000/login`, options)
             .then((res) => res.json())
             .then((data) => {
                 if (data.error) return setError(data.message)

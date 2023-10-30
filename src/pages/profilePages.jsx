@@ -15,6 +15,7 @@ const ProfilePages = () => {
     const newPasswordRef = useRef()
     const newPassword2Ref = useRef()
     const [error, setError] = useState()
+    const host = useSelector (state=>state.info.host)
 
     useEffect(() => {
         const options = {
@@ -24,7 +25,7 @@ const ProfilePages = () => {
                 Authorization: localStorage.getItem('token')
             },
         };
-        fetch('http://localhost:8000/profile', options)
+        fetch(`http://${host}:8000/profile`, options)
             .then((res) => res.json())
             .then((data) => {
                 if (data.error) return

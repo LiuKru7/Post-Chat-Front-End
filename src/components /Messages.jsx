@@ -10,6 +10,16 @@ const Messages = () => {
     const singleChat = useSelector(state => state.info.singleChat)
     const userInfo = useSelector(state => state.info.userInfo)
     const messageRef = useRef()
+    const messagesEndRef = useRef(null);
+
+    useEffect(() => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
+        }
+    }, [singleChat.messages]);
+
+
+
 
     useEffect(() => {
         socket.emit('joinChat', singleChat.roomId);
@@ -34,10 +44,13 @@ const Messages = () => {
 
     return (
         <div className="px-2 d-flex flex-column justify-content-between chat-window">
-            <div>{singleChat.messages && singleChat.messages.map((x, i) =>
-                <SingleMessage key={i} x={x}></SingleMessage>
-            )}</div>
-
+            <div className="chat-messages" ref={messagesEndRef}>
+                <div>
+                    {singleChat.messages && singleChat.messages.map((x, i) =>
+                        <SingleMessage key={i} x={x}></SingleMessage>
+                    )}
+                </div>
+            </div>
             {singleChat.roomId &&
                 <div>
                     <Form onSubmit={handleFormSubmit}>

@@ -79,4 +79,7 @@
     border: 1px solid black;
    right: 15px;
 }
-
+.chat-messages {
+    max-height: 78vh;
+    overflow: auto;
+}

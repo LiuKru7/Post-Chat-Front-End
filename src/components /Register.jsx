@@ -1,6 +1,7 @@
 import React, {useRef, useState} from 'react';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import {useSelector} from "react-redux";
 
 const Register = ({loginPage}) => {
     const usernameRef = useRef()
@@ -9,6 +10,7 @@ const Register = ({loginPage}) => {
     const [error, setError] = useState()
 
     function registerFunk () {
+        const host = useSelector (state=>state.info.host)
         const user = {
             username: usernameRef.current.value,
             password: passRef.current.value,
@@ -30,7 +32,7 @@ const Register = ({loginPage}) => {
             },
             body: JSON.stringify(user),
         };
-        fetch('http://localhost:8000/register', options)
+        fetch(`http://${host}:8000/register`, options)
             .then((res) => res.json())
             .then((data) => {
                 if (data.error) return setError(data.message)

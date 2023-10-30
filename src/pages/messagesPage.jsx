@@ -7,6 +7,7 @@ import Messages from "../components /Messages.jsx";
 import Button from "react-bootstrap/Button";
 
 const MessagesPage = () => {
+    const host = useSelector (state=>state.info.host)
     const dispatch = useDispatch()
     const allMyMessages = useSelector(state => state.info.allMyMessages)
     const oneChat = useSelector(state => state.info.singleChat)
@@ -23,7 +24,7 @@ const MessagesPage = () => {
                 Authorization: localStorage.getItem('token')
             },
         }
-        fetch('http://localhost:8000/allMessages', options)
+        fetch(`http://${host}:8000/allMessages`, options)
             .then((res) => res.json())
             .then(data => {
                 if (data.error) return

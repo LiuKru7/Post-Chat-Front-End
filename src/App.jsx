@@ -10,7 +10,7 @@ import PostsPage from "./pages/postsPage.jsx";
 import UsersPage from "./pages/usersPage.jsx";
 import SinglePostPage from "./pages/singlePostPage.jsx";
 import {io} from "socket.io-client";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {setAllPosts, setAllUsers, setShowPost, setSingleChat, setUserInFo} from "./features/info.jsx";
 
 export const socket = io("http://localhost:3001", {
@@ -20,6 +20,7 @@ export const socket = io("http://localhost:3001", {
 function App() {
     const dispatch = useDispatch()
     const nav = useNavigate()
+    const host = useSelector (state=>state.info.host)
 
     useEffect(() => {
         if (localStorage.getItem("autoLogin") === "true") {
@@ -30,7 +31,7 @@ function App() {
     }, []);
 
     useEffect(() => {
-        fetch('http://localhost:8000/allPosts')
+        fetch(`http://${host}:8000/allPosts`)
             .then((res) => res.json())
             .then(data => {
                 dispatch(setAllPosts(data.data))
@@ -38,7 +39,7 @@ function App() {
     }, [])
 
     useEffect(() => {
-        fetch('http://localhost:8000/allUsers')
+        fetch(`http://${host}:8000/allUsers`)
             .then((res) => res.json())
             .then(data => {
                 dispatch(setAllUsers(data.data))
