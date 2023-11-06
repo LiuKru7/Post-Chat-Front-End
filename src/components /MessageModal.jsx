@@ -11,7 +11,7 @@ const MessageModal = ({x,setShow}) => {
     const messageRef = useRef()
     const [error, setError] = useState()
     function messageFunk () {
-        if (messageRef.current.value.length<2) return setError("Message to short")
+        if (messageRef.current.value.length<2) return setError("Message too short")
         setError("")
         const info = {
             username: x.username,

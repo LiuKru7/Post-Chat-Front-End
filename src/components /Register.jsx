@@ -59,7 +59,7 @@ const Register = ({loginPage}) => {
                     <Form.Label>Password 2</Form.Label>
                     <Form.Control type="password" ref={pass2Ref} autoComplete="off" placeholder="Password 2" />
                     <Nav.Link eventKey="2" className="mb-4" title="Item">
-                        <span>Do you have account? </span>
+                        <span>Do you have an account? </span>
                         <span onClick={()=>loginPage(0)} className="text-primary fw-bold fs-3"> Login</span>
                     </Nav.Link>
                 </Form.Group>
