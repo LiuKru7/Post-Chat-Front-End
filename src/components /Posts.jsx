@@ -9,7 +9,6 @@ const Posts = ({x}) => {
     const nav = useNavigate()
 
     function showFunk () {
-        console.log(x)
             dispatch(setShowPost(x))
             nav("/singlePost")
     }

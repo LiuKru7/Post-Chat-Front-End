@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React, {useRef, useState} from 'react'
 import { X } from 'react-bootstrap-icons';
 import {InputGroup} from "react-bootstrap";
 import Form from "react-bootstrap/Form";
@@ -9,8 +9,10 @@ import {socket} from "../App.jsx";
 const MessageModal = ({x,setShow}) => {
     const myInfo = useSelector (state=> state.info.userInfo)
     const messageRef = useRef()
+    const [error, setError] = useState()
     function messageFunk () {
-        if (messageRef.current.value.length<2) return console.log ("trumpas")
+        if (messageRef.current.value.length<2) return setError("Message to short")
+        setError("")
         const info = {
             username: x.username,
             userId: x._id,
@@ -38,6 +40,9 @@ const MessageModal = ({x,setShow}) => {
                 />
                 <Button onClick={messageFunk}>Send</Button>
             </InputGroup></div>
+            <div style={{color:"red",marginTop:"-10px"}}>
+                {error && error}
+            </div>
         </div>
     );
 };

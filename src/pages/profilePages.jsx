@@ -57,7 +57,7 @@ const ProfilePages = () => {
             },
             body: JSON.stringify(data),
         }
-        fetch("http://localhost:8000/changeImage", options)
+        fetch(`http://${host}:8000/changeImage`, options)
             .then((res) => res.json())
             .then((data) => {
                 if (data.error) return setError(data.message)
@@ -82,7 +82,7 @@ const ProfilePages = () => {
             },
             body: JSON.stringify(data),
         }
-        fetch("http://localhost:8000/changePassword", options)
+        fetch(`http://${host}:8000/changePassword`, options)
             .then((res) => res.json())
             .then((data) => {
                 if (data.error) return setError(data.message)

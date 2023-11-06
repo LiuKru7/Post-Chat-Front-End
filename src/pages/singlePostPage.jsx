@@ -16,6 +16,7 @@ const SinglePostPage = () => {
     const [show, setShow] = useState(0)
     const nav = useNavigate()
     const commentRef = useRef()
+        const [error, setError] = useState()
 
     function commentFunk() {
         const info = {
@@ -23,7 +24,10 @@ const SinglePostPage = () => {
             comment: commentRef.current.value,
             username: userInfo.username
         }
+        if (info.comment.length<3) return setError("Comment too short")
+        setError("")
         socket.emit("newComment", info);
+        commentRef.current.value = ""
     }
     function likeFunk() {
         const info = {
@@ -39,7 +43,7 @@ const SinglePostPage = () => {
     return (
 
         <div className='position-relative d-flex justify-content-center'>
-            <div className="px-lg-5 p-3 single-post">
+            <div className="px-lg-5 p-3 single-post w-100">
                 {show === 1 && <MessageModal2 x={showPost} setShow={setShow}></MessageModal2>}
                 <div className="d-flex justify-content-end">
                     <X className="cursor-pointer x-hover x-border " onClick={() => nav('/posts')} color="red"
@@ -71,7 +75,7 @@ const SinglePostPage = () => {
                 <div className="mt-5">
                     <h4 className="">Comments</h4>
                     <div className="">
-                        <div className="">
+                        <div className="comments">
                             {showPost.comments && showPost.comments.map((x, i) =>
                                 <SingleComment key={i} x={x}></SingleComment>
                             )}
@@ -80,7 +84,7 @@ const SinglePostPage = () => {
                     <div className="h-25 ">
                         <InputGroup className="mb-3">
                             <InputGroup.Text className="d-none d-lg-block" id="inputGroup-sizing-default">
-                                Message
+                               Comment
                             </InputGroup.Text>
                             <Form.Control
                                 aria-label="Default"
@@ -88,7 +92,11 @@ const SinglePostPage = () => {
                                 ref={commentRef}
                             />
                             <Button onClick={commentFunk}>Send</Button>
+
                         </InputGroup>
+                        <div style={{color:"red"}}>
+                            {error && error}
+                        </div>
 
                     </div>
                 </div>

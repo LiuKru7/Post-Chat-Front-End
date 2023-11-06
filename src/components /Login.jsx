@@ -75,7 +75,9 @@ function Login({loginPage}) {
                     <span>Don't have an account? </span>
                     <span onClick={()=>loginPage(1)} className="text-primary fw-bold fs-3">  Sign up</span>
                 </Nav.Link>
-                {error &&  error}
+                <div style={{color:"red"}}>
+                    {error &&  error}
+                </div>
                 <Button className="px-5" variant="primary"  onClick={login}>
                     Submit
                 </Button>

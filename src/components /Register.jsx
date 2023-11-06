@@ -2,15 +2,17 @@ import React, {useRef, useState} from 'react';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {useSelector} from "react-redux";
+import Nav from "react-bootstrap/Nav";
 
 const Register = ({loginPage}) => {
     const usernameRef = useRef()
     const passRef = useRef()
     const pass2Ref = useRef()
     const [error, setError] = useState()
+    const host = useSelector (state=>state.info.host)
 
     function registerFunk () {
-        const host = useSelector (state=>state.info.host)
+
         const user = {
             username: usernameRef.current.value,
             password: passRef.current.value,
@@ -56,8 +58,14 @@ const Register = ({loginPage}) => {
                 <Form.Group className="mb-5"  >
                     <Form.Label>Password 2</Form.Label>
                     <Form.Control type="password" ref={pass2Ref} autoComplete="off" placeholder="Password 2" />
+                    <Nav.Link eventKey="2" className="mb-4" title="Item">
+                        <span>Do you have account? </span>
+                        <span onClick={()=>loginPage(0)} className="text-primary fw-bold fs-3"> Login</span>
+                    </Nav.Link>
                 </Form.Group>
-                {error &&  error}
+                <div style={{color:"red"}}>
+                    {error &&  error}
+                </div>
                 <Button className="px-5" variant="primary"  onClick={registerFunk} >
                     Submit
                 </Button>

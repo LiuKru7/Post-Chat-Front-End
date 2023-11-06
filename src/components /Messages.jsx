@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useSelector} from "react-redux";
 import SingleMessage from "./SingleMessage.jsx";
 import {InputGroup} from "react-bootstrap";
@@ -11,6 +11,7 @@ const Messages = () => {
     const userInfo = useSelector(state => state.info.userInfo)
     const messageRef = useRef()
     const messagesEndRef = useRef(null);
+    const [error, setError] = useState()
 
     useEffect(() => {
         if (messagesEndRef.current) {
@@ -18,12 +19,8 @@ const Messages = () => {
         }
     }, [singleChat.messages]);
 
-
-
-
     useEffect(() => {
         socket.emit('joinChat', singleChat.roomId);
-        console.log("sss")
     }, [singleChat])
 
     function messageFunk() {
@@ -33,8 +30,10 @@ const Messages = () => {
             msgFrom: userInfo.username,
             message: messageRef.current.value
         }
+        if (info.message.length<2) return setError("error")
         socket.emit('sendMessage', info);
         messageRef.current.value = ""
+        setError("")
     }
 
     function handleFormSubmit(e) {
@@ -56,7 +55,7 @@ const Messages = () => {
                     <Form onSubmit={handleFormSubmit}>
                         <InputGroup className="mb-3">
                             <InputGroup.Text className="d-none d-lg-block" id="inputGroup-sizing-default">
-                                Message
+                                {error ? <span style={{color: "red"}}>Please type message to continue</span> : "Message" }
                             </InputGroup.Text>
                             <Form.Control
                                 aria-label="Default"

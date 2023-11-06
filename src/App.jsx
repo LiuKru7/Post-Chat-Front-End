@@ -54,7 +54,6 @@ function App() {
     useEffect(() => {
         socket.on('addAllPost', (allPost) => {
             dispatch(setAllPosts(allPost))
-            console.log(allPost)
         })
     }, [])
 
@@ -83,7 +82,6 @@ function App() {
 
     useEffect(() => {
         socket.on('autoLoginInfo', data => {
-            console.log(data)
             dispatch(setUserInFo(data))
         })
     }, [])

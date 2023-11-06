@@ -25,6 +25,7 @@ const ModalCreatePost = ({setModalOff}) => {
         if (!info.image.startsWith('http://') && !info.image.startsWith('https://')) {
             return setError("Bad url")
         }
+        if (info.title.length<3) return setError("Tittle too short")
         socket.emit("newPost", info);
         setModalOff(0)
         }
@@ -52,6 +53,9 @@ const ModalCreatePost = ({setModalOff}) => {
                     />
                 </InputGroup>
                 <Button onClick={createPostFunk} className="mt-4 px-5 py-1">SUBMIT</Button>
+                <div style={{color:"red"}}>
+                    {error && error}
+                </div>
             </div>
     );
 };
