@@ -57,6 +57,7 @@ const SinglePostPage = () => {
                             </div>
                             <div className="d-flex flex-column justify-content-center  px-3 ">
                                 <b>{showPost.username}</b>
+
                                 {userInfo.username !== showPost.username &&
                                     <Button onClick={writeMessageFunk}>Write Message</Button>}
                             </div>
@@ -68,7 +69,19 @@ const SinglePostPage = () => {
                             <img className="" src={showPost.image} alt=""/>
                         </div>
                         <div className="d-flex justify-content-end gap-2 align-items-center m-1">
-                            <Button onClick={likeFunk}>Like</Button> <span>{showPost.likes.length}</span>
+
+                                {
+                                    showPost.likes && showPost.likes.includes(userInfo.username) ?
+                                        <div>
+                                            <Button variant="outline-primary" onClick={likeFunk}>DisLike</Button>
+                                            <span>{showPost.likes.length}</span>
+                                        </div> :
+                                        <div>
+                                            <Button variant="outline-primary" onClick={likeFunk}>Like</Button>
+                                            <span>{showPost.likes.length}</span>
+                                        </div>
+                                }
+
                         </div>
                     </div>
                 </div>
