@@ -25,7 +25,7 @@ const ProfilePages = () => {
                 Authorization: localStorage.getItem('token')
             },
         };
-        fetch(`http://${host}:8000/profile`, options)
+        fetch(`http://${host}/profile`, options)
             .then((res) => res.json())
             .then((data) => {
                 if (data.error) return
@@ -57,7 +57,7 @@ const ProfilePages = () => {
             },
             body: JSON.stringify(data),
         }
-        fetch(`http://${host}:8000/changeImage`, options)
+        fetch(`http://${host}/changeImage`, options)
             .then((res) => res.json())
             .then((data) => {
                 if (data.error) return setError(data.message)
@@ -82,7 +82,7 @@ const ProfilePages = () => {
             },
             body: JSON.stringify(data),
         }
-        fetch(`http://${host}:8000/changePassword`, options)
+        fetch(`http://${host}/changePassword`, options)
             .then((res) => res.json())
             .then((data) => {
                 if (data.error) return setError(data.message)

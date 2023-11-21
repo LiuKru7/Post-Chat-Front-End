@@ -11,7 +11,7 @@ export const infoSlice = createSlice( {
         allUsers: [],
         allMyMessages: [],
         singleChat: [],
-        host: "localhost"
+        host: "68.183.77.169:8002"
     },
     reducers: {
         setUser: (state, action) => {

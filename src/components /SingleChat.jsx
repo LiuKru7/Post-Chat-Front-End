@@ -15,7 +15,7 @@ const SingleChat = ({x, setShow}) => {
                 Authorization: localStorage.getItem('token')
             },
         };
-        fetch(`http://${host}:8000/profile`, options)
+        fetch(`http://${host}/profile`, options)
             .then((res) => res.json())
             .then((data) => {
                 if (data.error) return
