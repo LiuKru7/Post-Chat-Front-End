@@ -34,7 +34,7 @@ const Register = ({loginPage}) => {
             },
             body: JSON.stringify(user),
         };
-        fetch(`http://${host}/register`, options)
+        fetch(`${host}/register`, options)
             .then((res) => res.json())
             .then((data) => {
                 if (data.error) return setError(data.message)

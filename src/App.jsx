@@ -13,7 +13,7 @@ import {io} from "socket.io-client";
 import {useDispatch, useSelector} from "react-redux";
 import {setAllPosts, setAllUsers, setShowPost, setSingleChat, setUserInFo} from "./features/info.jsx";
 
-export const socket = io("http://68.183.77.169:8003", {
+export const socket = io("https://socket.kruopis.lt", {
     autoConnect: true
 });
 
@@ -31,7 +31,7 @@ function App() {
     }, []);
 
     useEffect(() => {
-        fetch(`http://${host}/allPosts`)
+        fetch(`${host}/allPosts`)
             .then((res) => res.json())
             .then(data => {
                 dispatch(setAllPosts(data.data))
@@ -39,7 +39,7 @@ function App() {
     }, [])
 
     useEffect(() => {
-        fetch(`http://${host}/allUsers`)
+        fetch(`${host}/allUsers`)
             .then((res) => res.json())
             .then(data => {
                 dispatch(setAllUsers(data.data))

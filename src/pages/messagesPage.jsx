@@ -24,7 +24,7 @@ const MessagesPage = () => {
                 Authorization: localStorage.getItem('token')
             },
         }
-        fetch(`http://${host}/allMessages`, options)
+        fetch(`${host}/allMessages`, options)
             .then((res) => res.json())
             .then(data => {
                 if (data.error) return

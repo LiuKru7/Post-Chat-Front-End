@@ -42,7 +42,7 @@ function Login({loginPage}) {
             },
             body: JSON.stringify(user),
         };
-        fetch(`http://${host}/login`, options)
+        fetch(`${host}/login`, options)
             .then((res) => res.json())
             .then((data) => {
                 if (data.error) return setError(data.message)
