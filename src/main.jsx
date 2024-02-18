@@ -7,6 +7,7 @@ import {Provider} from "react-redux";
 import infoReducer from "./features/info.jsx"
 import {configureStore} from "@reduxjs/toolkit";
 
+
 const store = configureStore({
     reducer: {
         info: infoReducer
